@@ -9,6 +9,7 @@ material = "1.13.0-alpha01"
 startup = "1.2.0-alpha02"
 soloader = "0.11.0"
 flipper = "0.249.0"
+chooonggKtx = "0.0.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -19,6 +20,7 @@ androidx-startup-runtime = { module = "androidx.startup:startup-runtime", versio
 facebook-soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }
 facebook-flipper = { module = "com.facebook.flipper:flipper", version.ref = "flipper" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+chooongg-ktx = { module = "com.chooongg.android:ktx", version.ref = "chooonggKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
