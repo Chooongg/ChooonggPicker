@@ -19,9 +19,5 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val intent = Intent()
-        val uri = Uri.parse("https://www.baidu.com")
-        URL("https://www.baidu.com").
-        intent.setData()
     }
 }
