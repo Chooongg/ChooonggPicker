@@ -1,6 +1,7 @@
 package com.chooongg.picker.file
 
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import androidx.annotation.IntDef
 import androidx.annotation.IntRange
@@ -88,7 +89,8 @@ class FilePicker {
         }
 
         fun start(listener: (MutableList<File>) -> Unit) {
-
+            Config.listener = listener
+            context.startActivity(Intent(context, FilePickerActivity::class.java))
         }
     }
 }
