@@ -58,7 +58,9 @@ class FilePicker {
         }
     }
 
-    class FilePickerBuilder internal constructor(val context: Context, val targetView: View?) {
+    class FilePickerBuilder internal constructor(
+        private val context: Context, private val targetView: View?
+    ) {
 
         fun theme(@StyleRes theme: Int) = apply {
             Config.theme = theme

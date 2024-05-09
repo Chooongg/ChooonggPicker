@@ -3,8 +3,9 @@ agp = "8.4.0"
 kotlin = "1.9.0"
 appcompat = "1.7.0-alpha03"
 activity = "1.9.0"
-constraintlayout = "2.1.4"
+constraintlayout = "2.2.0-alpha13"
 coreKtx = "1.13.0"
+lifecycle = "2.8.0-rc01"
 material = "1.13.0-alpha01"
 startup = "1.2.0-alpha02"
 soloader = "0.11.0"
@@ -14,11 +15,12 @@ chooonggKtx = "0.0.3"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startup" }
 facebook-soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }
 facebook-flipper = { module = "com.facebook.flipper:flipper", version.ref = "flipper" }
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 chooongg-ktx = { module = "com.chooongg.android:ktx", version.ref = "chooonggKtx" }
 
