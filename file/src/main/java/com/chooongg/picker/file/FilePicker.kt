@@ -18,6 +18,10 @@ class FilePicker {
         const val MODE_PAGE = 0
         const val MODE_BOTTOM_SHEET = 1
 
+        fun globalConfig(block: FilePickerGlobalConfig.() -> Unit) {
+            FilePickerGlobalConfig.block()
+        }
+
         fun with(context: Context): FilePickerBuilder {
             Config.reset()
             return FilePickerBuilder(context, null)
@@ -28,7 +32,7 @@ class FilePicker {
         }
     }
 
-    internal object Config {
+    open class Configuration internal constructor() {
 
         @StyleRes
         var theme: Int = 0
@@ -43,16 +47,26 @@ class FilePicker {
         var chooseButtonText: Int = 0
         var supportedTypes: List<String>? = null
         var excludedTypes: List<String>? = null
+        var excludedDotStartFiles: Boolean = false
+        var excludedCompressFiles: Boolean = false
         var selectedFiles: List<File>? = null
+    }
+
+    object FilePickerGlobalConfig : Configuration()
+
+    internal object Config : Configuration() {
+
         var listener: ((MutableList<File>) -> Unit)? = null
 
         fun reset() {
-            theme = 0
-            mode = MODE_PAGE
+            theme = FilePickerGlobalConfig.theme
+            mode = FilePickerGlobalConfig.mode
             maxCount = 1
-            chooseButtonText = 0
+            chooseButtonText = FilePickerGlobalConfig.chooseButtonText
             supportedTypes = null
             excludedTypes = null
+            excludedDotStartFiles = false
+            excludedCompressFiles = false
             selectedFiles = null
             listener = null
         }
@@ -80,6 +94,14 @@ class FilePicker {
 
         fun excludedTypes(vararg types: String) = apply {
             Config.excludedTypes = mutableListOf(*types)
+        }
+
+        fun excludedDotStartFiles(boolean: Boolean) = apply {
+            Config.excludedDotStartFiles = boolean
+        }
+
+        fun excludedCompressFiles(boolean: Boolean) = apply {
+            Config.excludedCompressFiles = boolean
         }
 
         fun selectedFiles(files: List<File>) = apply {
