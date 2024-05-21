@@ -39,6 +39,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.startup.runtime)
+    implementation(project(":file"))
+    implementation(project(":media"))
     // 调试工具
     debugImplementation(libs.facebook.soloader)
     debugImplementation(libs.facebook.flipper)

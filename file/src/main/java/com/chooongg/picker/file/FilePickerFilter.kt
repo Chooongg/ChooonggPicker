@@ -25,7 +25,7 @@ class FilePickerFilter(
 //        ) {
 //            return false
 //        }
-        if () return if (types.isNotEmpty()) {
+        return if (types.isNotEmpty()) {
             var isEqualType = false
             types.forEach {
                 if ((pathname.name.endsWith(it.lowercase()) || pathname.name.endsWith(it.uppercase())) && !pathname.isHidden) {

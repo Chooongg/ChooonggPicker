@@ -18,10 +18,6 @@ class FilePicker {
         const val MODE_PAGE = 0
         const val MODE_BOTTOM_SHEET = 1
 
-        fun globalConfig(block: FilePickerGlobalConfig.() -> Unit) {
-            FilePickerGlobalConfig.block()
-        }
-
         fun with(context: Context): FilePickerBuilder {
             Config.reset()
             return FilePickerBuilder(context, null)
@@ -40,21 +36,20 @@ class FilePicker {
         @FilePickerMode
         var mode: Int = MODE_PAGE
 
-        @IntRange(from = 1)
-        var maxCount: Int = 1
-
         @StringRes
         var chooseButtonText: Int = 0
         var supportedTypes: List<String>? = null
         var excludedTypes: List<String>? = null
         var excludedDotStartFiles: Boolean = false
         var excludedCompressFiles: Boolean = false
-        var selectedFiles: List<File>? = null
     }
 
-    object FilePickerGlobalConfig : Configuration()
-
     internal object Config : Configuration() {
+
+        @IntRange(from = 1)
+        var maxCount: Int = 1
+
+        var selectedFiles: List<File>? = null
 
         var listener: ((MutableList<File>) -> Unit)? = null
 
@@ -63,10 +58,10 @@ class FilePicker {
             mode = FilePickerGlobalConfig.mode
             maxCount = 1
             chooseButtonText = FilePickerGlobalConfig.chooseButtonText
-            supportedTypes = null
-            excludedTypes = null
-            excludedDotStartFiles = false
-            excludedCompressFiles = false
+            supportedTypes = FilePickerGlobalConfig.supportedTypes
+            excludedTypes = FilePickerGlobalConfig.excludedTypes
+            excludedDotStartFiles = FilePickerGlobalConfig.excludedDotStartFiles
+            excludedCompressFiles = FilePickerGlobalConfig.excludedCompressFiles
             selectedFiles = null
             listener = null
         }
