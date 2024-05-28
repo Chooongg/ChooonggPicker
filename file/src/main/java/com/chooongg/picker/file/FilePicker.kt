@@ -19,7 +19,6 @@ class FilePicker {
         const val MODE_BOTTOM_SHEET = 1
 
         fun with(context: Context): FilePickerBuilder {
-            Config.reset()
             return FilePickerBuilder(context, null)
         }
 
@@ -38,10 +37,13 @@ class FilePicker {
 
         @StringRes
         var chooseButtonText: Int = 0
-        var supportedTypes: List<String>? = null
-        var excludedTypes: List<String>? = null
-        var excludedDotStartFiles: Boolean = false
-        var excludedCompressFiles: Boolean = false
+
+        var supportFileFormats: Array<out String> = emptyArray()
+
+        var excludeCompressFiles: Boolean = false
+        var excludeDotStartFiles: Boolean = false
+        var excludeFileFormats: Array<out String> = emptyArray()
+        var excludeHidden: Boolean = true
     }
 
     internal object Config : Configuration() {
@@ -58,10 +60,10 @@ class FilePicker {
             mode = FilePickerGlobalConfig.mode
             maxCount = 1
             chooseButtonText = FilePickerGlobalConfig.chooseButtonText
-            supportedTypes = FilePickerGlobalConfig.supportedTypes
-            excludedTypes = FilePickerGlobalConfig.excludedTypes
-            excludedDotStartFiles = FilePickerGlobalConfig.excludedDotStartFiles
-            excludedCompressFiles = FilePickerGlobalConfig.excludedCompressFiles
+            supportFileFormats = FilePickerGlobalConfig.supportFileFormats
+            excludeCompressFiles = FilePickerGlobalConfig.excludeCompressFiles
+            excludeDotStartFiles = FilePickerGlobalConfig.excludeDotStartFiles
+            excludeFileFormats = FilePickerGlobalConfig.excludeFileFormats
             selectedFiles = null
             listener = null
         }
@@ -70,6 +72,10 @@ class FilePicker {
     class FilePickerBuilder internal constructor(
         private val context: Context, private val targetView: View?
     ) {
+
+        init {
+            Config.reset()
+        }
 
         fun theme(@StyleRes theme: Int) = apply {
             Config.theme = theme
@@ -83,20 +89,24 @@ class FilePicker {
             Config.maxCount = maxCount
         }
 
-        fun supportedTypes(vararg types: String) = apply {
-            Config.supportedTypes = mutableListOf(*types)
+        fun supportFileFormats(vararg types: String) = apply {
+            Config.supportFileFormats = types
         }
 
-        fun excludedTypes(vararg types: String) = apply {
-            Config.excludedTypes = mutableListOf(*types)
+        fun excludeCompressFiles(boolean: Boolean) = apply {
+            Config.excludeCompressFiles = boolean
         }
 
-        fun excludedDotStartFiles(boolean: Boolean) = apply {
-            Config.excludedDotStartFiles = boolean
+        fun excludeDotStartFiles(boolean: Boolean) = apply {
+            Config.excludeDotStartFiles = boolean
         }
 
-        fun excludedCompressFiles(boolean: Boolean) = apply {
-            Config.excludedCompressFiles = boolean
+        fun excludeFileFormats(vararg types: String) = apply {
+            Config.excludeFileFormats = types
+        }
+
+        fun excludeHidden(boolean: Boolean) = apply {
+            Config.excludeHidden = boolean
         }
 
         fun selectedFiles(files: List<File>) = apply {

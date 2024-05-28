@@ -1,38 +1,51 @@
 package com.chooongg.picker.file
 
-import com.chooongg.picker.file.FilePicker.Config.mode
 import java.io.File
 import java.io.FileFilter
 
 class FilePickerFilter(
-    private val supportedTypes: Array<out String>,
-    private val excludedTypes: Array<out String>,
-    private val excludedDotStart: Boolean
 ) : FileFilter {
-    override fun accept(pathname: File?): Boolean {
-        if (pathname == null) return false
-        if (pathname.isDirectory && !pathname.isHidden) return true
-        if (pathname.name.isEmpty()) return false
-        if (excludedDotStart && pathname.name[0] == '.') return false
-        val fileFormat = pathname.name.split('.').let {
-            if (it.size > 1) it.last() else ""
+    override fun accept(file: File?): Boolean {
+        if (file == null) return false
+        // 忽略隐藏文件
+        if (FilePicker.Config.excludeHidden && file.isHidden) return false
+        else if (file.isDirectory) return true
+        // 忽略空文件名
+        if (file.name.isEmpty()) return false
+        // 忽略点开头文件
+        if (FilePicker.Config.excludeDotStartFiles && file.name.first() == '.') return false
+        // 文件格式
+        val fileFormat = file.name.split('.').let {
+            if (it.size > 1) it.last().lowercase() else null
         }
-
-//        // 忽略压缩文件
-//        if (pathname.name.endsWith("zip", true) || pathname.name.endsWith(
-//                "rar", true
-//            ) || pathname.name.endsWith("7z", true)
-//        ) {
-//            return false
-//        }
-        return if (types.isNotEmpty()) {
-            var isEqualType = false
-            types.forEach {
-                if ((pathname.name.endsWith(it.lowercase()) || pathname.name.endsWith(it.uppercase())) && !pathname.isHidden) {
-                    isEqualType = true
-                }
-            }
-            if (isEqualType) mode else !mode
-        } else true
+        // 忽略压缩格式文件
+        if (FilePicker.Config.excludeCompressFiles) {
+            return !arrayOf(
+                "zip",
+                "rar",
+                "7z",
+                "tar",
+                "gz",
+                "apz",
+                "ar",
+                "bz",
+                "car",
+                "dar",
+                "cpgz",
+                "f",
+                "ha",
+                "hbc",
+                "hbc2",
+                "hbe",
+                "hpk",
+                "hyp"
+            ).contains(fileFormat)
+        }
+        // 排除指定文件格式
+        if (FilePicker.Config.excludeFileFormats.contains(fileFormat)) return false
+        // 支持指定文件格式
+        if (FilePicker.Config.supportFileFormats.contains(fileFormat)) return true
+        // 不筛选
+        return true
     }
 }

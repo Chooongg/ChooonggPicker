@@ -7,6 +7,51 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.google.android.material.tabs.TabLayout
+        style="@style/Widget.Material3.TabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabContentStart="0dp"
+        app:tabGravity="start"
+        app:tabIndicator="@null"
+        app:tabInlineLabel="true"
+        app:tabMaxWidth="800dp"
+        app:tabMinWidth="0dp"
+        app:tabMode="scrollable"
+        app:tabPadding="0dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="root1241251234" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/chooongg_ic_end"
+            android:text="root" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/chooongg_ic_end"
+            android:text="root" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/chooongg_ic_end"
+            android:text="root" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/chooongg_ic_end"
+            android:text="root" />
+
+    </com.google.android.material.tabs.TabLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

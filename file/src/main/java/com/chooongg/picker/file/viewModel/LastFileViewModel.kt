@@ -2,8 +2,9 @@ package com.chooongg.picker.file.viewModel
 
 import android.content.Context
 import android.provider.MediaStore.Images.Media
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.chooongg.ktx.withMain
+import com.chooongg.picker.file.FilePickerFilter
 import java.io.File
 import java.util.LinkedList
 import java.util.Queue
@@ -12,6 +13,7 @@ class LastFileViewModel(
     private val supportedTypes: Array<out String>, private val excludedTypes: Array<out String>
 ) : ViewModel() {
 
+    var fileListLiveData = MutableLiveData<MutableList<File>?>()
 
     fun getLastFiles(context: Context) {
         context.contentResolver.query(Media.EXTERNAL_CONTENT_URI, null, null, null, null)?.use {
@@ -29,20 +31,14 @@ class LastFileViewModel(
         while (!files.isEmpty()) {
             val file = files.remove()
             if (file.isDirectory) {
-                val listFiles = file.listFiles(
-                    PickerFileFilter(
-                        FilePickerConstant.filterTypes, FilePickerConstant.filterTypeMode
-                    )
-                )
+                val listFiles = file.listFiles(FilePickerFilter())
                 if (!listFiles.isNullOrEmpty()) files.addAll(listFiles.toList())
             } else if (file.exists()) {
                 fileList.add(file)
             }
         }
-        val sortList = fileList.sortedWith(FilePickerUtils.SortByTime())
-        val returnList = FileItem.getPickerFileList(sortList)
-        withMain {
-            onFindFileListListener?.onFindFileList("", returnList)
-        }
+//        val sortList = fileList.sortedWith(FilePickerUtils.SortByTime())
+//        val returnList = FileItem.getPickerFileList(sortList)
+//        fileListLiveData.postValue(returnList)
     }
 }
