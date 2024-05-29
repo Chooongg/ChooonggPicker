@@ -7,6 +7,7 @@
     </style>
 
     <style name="Theme.ChooonggPicker" parent="Base.Theme.ChooonggPicker">
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:configChanges">orientation|screenSize</item>
     </style>
 </resources>
